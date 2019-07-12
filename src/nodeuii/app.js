@@ -3,10 +3,10 @@ import config from "./config"
 import errorHandler from './middwares/errorHandler.js';
 import log4js from 'log4js';
 
-import webpack from 'webpack'
-import { devMiddleware, hotMiddleware } from 'koa-webpack-middleware'
-import devConfig from '../webpack.config.js'
-const compile = webpack(devConfig)
+// import webpack from 'webpack'
+// import { devMiddleware, hotMiddleware } from 'koa-webpack-middleware'
+// import devConfig from '../webpack.config.js'
+// const compile = webpack(devConfig)
 
 import {
     createContainer,
@@ -39,37 +39,37 @@ const app = new Koa();
 
 /**********Begin webpack热加载********* */
 
-app.use(devMiddleware(compile, {
-    // display no info to console (only warnings and errors)
-    // //向控制台显示无信息（仅警告和错误）
+// app.use(devMiddleware(compile, {
+//     // display no info to console (only warnings and errors)
+//     // //向控制台显示无信息（仅警告和错误）
 
-     noInfo: false,
+//      noInfo: false,
 
-     // display nothing to the console
-     quiet: false,
+//      // display nothing to the console
+//      quiet: false,
  
-     // switch into lazy mode
-     // that means no watching, but recompilation on every request
-     lazy: true,
+//      // switch into lazy mode
+//      // that means no watching, but recompilation on every request
+//      lazy: true,
  
-     // watch options (only lazy: false)
-     watchOptions: {
-         aggregateTimeout: 300,
-         poll: true
-     },
+//      // watch options (only lazy: false)
+//      watchOptions: {
+//          aggregateTimeout: 300,
+//          poll: true
+//      },
  
-     // public path to bind the middleware to
-     // use the same as in webpack
-     publicPath: "/assets/",
-     writeToDisk:true,
-     // custom headers
-    //  headers: { "X-Custom-Header": "yes" },
+//      // public path to bind the middleware to
+//      // use the same as in webpack
+//      publicPath: "/assets/",
+//      writeToDisk:true,
+//      // custom headers
+//     //  headers: { "X-Custom-Header": "yes" },
  
-     // options for formating the statistics
-     stats: {
-         colors: true
-     }
-}))
+//      // options for formating the statistics
+//      stats: {
+//          colors: true
+//      }
+// }))
 
 // app.use(hotMiddleware(compile, {
 //     // log: console.log,
@@ -102,6 +102,7 @@ app.context.render = co.wrap(render({
     writeBody: false
 }));
 
+console.log("TCL: config.cache", config.cache)
 
 //自动化装载路由
 app.use(loadControllers(__dirname + "/routes/*.js"));

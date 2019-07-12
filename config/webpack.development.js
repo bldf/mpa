@@ -20,7 +20,7 @@ module.exports = {
             to: '../components'
         }],{
             copyUnmodified:true, //只打包copy内容
-            ignore:["*.js","*.css",".DS_Store"]
+            ignore:["*.js","*.css",".DS_Store","*.ts","*.tsx"]
         }),
         // new webpack.HotModuleReplacementPlugin()
     ]

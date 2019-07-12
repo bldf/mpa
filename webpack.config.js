@@ -17,7 +17,7 @@ const {
     join,
     resolve
 } = require("path");
-const files = glob.sync("./src/webapp/views/**/*.entry.js");
+const files = glob.sync("./src/webapp/views/**/*.entry.*");
 //需要去处理的入口文件
 let _entry = {};
 let _plugins = [];
@@ -79,18 +79,14 @@ let webpackConfig = {
             }]
         }]
     },
-    // watch: !_modeflag,
-    // watchOptions:{
-    //     poll:1000,
-    //     aggregateTimeout:500,
-    //     ignored:/node_modules/
-    // },
-    resolve: {
-        // Add `.ts` and `.tsx` as a resolvable extension.
-        extensions: [".ts", ".tsx", ".js"]
-      },
+    watch: !_modeflag,
+    watchOptions:{
+        poll:1000,
+        aggregateTimeout:500,
+        ignored:/node_modules/
+    },
     output: {
-        // path: join(__dirname, "./dist/assets"),
+        path: join(__dirname, "./dist/assets"),
         publicPath: "/",
         filename: "scripts/[name].bundle.js"
     },
@@ -118,7 +114,7 @@ let webpackConfig = {
         //所有的html自动化的过来
         new WebpackBuildNotifierPlugin({
             title: "webpack配置结果",
-            // logo: resolve("./favicon.png"),
+            logo: resolve("./favicon.png"),
             suppressSuccess: true
         }),
         new MiniCssExtractPlugin({

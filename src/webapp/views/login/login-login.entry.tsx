@@ -16,10 +16,10 @@ const Login = () => {
     return (
         <Layout >
             <Header>
-                <h1>仕点智造生产管理系统</h1>
+                <h1>仕点智造生产管理系统78***9</h1>
             </Header>
             <Content>
-                <p > SDINT All Rights Reserved 仕点智能</p>
+                <p > SDINT All Rights Reserved897798654651321 仕点智能</p>
             </Content>
         </Layout>
     );
@@ -29,7 +29,7 @@ console.log('llllllllllllllllllllllll')
 ReactDOM.render((
     <Layout >
         <Header>
-            <h1>仕点智造生产管理系统</h1>
+            <h1>仕点智造生产管理系统987987987</h1>
         </Header>
         <Content>
             <p > SDINT All Rights Reserved 仕点智能</p>
