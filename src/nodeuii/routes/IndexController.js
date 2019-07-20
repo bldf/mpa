@@ -21,8 +21,13 @@ class IndexController {
     @GET()
     async about(ctx,next) {
         // console.log("TCL: IndexController -> about -> this.webpack", this.webpack)
-        // ctx.body = await ctx.render(this.webpack.fileSystem.readFileSync('index/pages/test.html'));
         ctx.body = await ctx.render("login/pages/login.html",{ body:{class:'about',dataActivemenu:'about'}});
+    }
+
+    @route("report")
+    @GET()
+    async report(ctx,next) {
+        ctx.body = await ctx.render("report/pages/index.html");
     }
 
     @route("seal.html")

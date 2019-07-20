@@ -26,8 +26,8 @@ class htmlAfterWebpackPlugin {
                 
                 _html = _html.replace(/common:/g, "../../common/");
                 const result = assetsHelp(htmlPluginData.assets);
-                _html = _html.replace("<!--injectcss-->", result.css.join(""));
-                _html = _html.replace("<!--injectjs-->", result.js.join(""));
+                _html = _html.replace("<injectcss>", result.css.join(""));
+                _html = _html.replace("<injectjs>", result.js.join(""));
                 htmlPluginData.html = _html;
             });
         });

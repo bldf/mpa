@@ -1,0 +1,37 @@
+{
+	"tags":
+	{
+		"allowUnknownTags" : true
+	},
+	"plugins":[
+		 "plugins/markdown"
+		,"/Users/SDLP06/AppData/Roaming/npm/node_modules/tsdoc/template/plugins/TSDoc.js"
+	],
+	"opts":
+	{
+		"template"	:"/Users/SDLP06/AppData/Roaming/npm/node_modules/tsdoc/template",
+		"recurse"	:"true"
+	},
+	"templates" : {
+		"cleverLinks"     : false,
+		"monospaceLinks"  : false
+	},
+	"source":
+	{
+		"includePattern": "(\\.d)?\\.ts$"
+	},
+	"markdown"  : {
+		"parser"   : "gfm",
+		"hardwrap" : true
+	},
+	"tsdoc":{
+		"source"		:"/yxl/project/newpro/mpa/te.ts",
+		"destination"	:"/yxl/project/newpro/mpa/docs",
+		"tutorials"		:"",
+		"systemName"	: "mpa",
+		"footer"		: "",
+		"copyright"		: "mpa Copyright © 2019 SDLP06.",
+		"outputSourceFiles" : true,
+		"commentsOnly": true
+	}
+}

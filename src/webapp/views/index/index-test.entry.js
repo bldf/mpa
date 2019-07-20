@@ -1,2 +1,1 @@
-import ydfooter from "../../components/ydfooter/ydfooter.js";
-ydfooter.init();
+console.log('99999')

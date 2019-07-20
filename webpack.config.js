@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const htmlAfterWebpackPlugin = require("./config/htmlAfterWebpackPlugin.js");
 const argv = require('yargs-parser')(process.argv.slice(2));
+const path = require("path");
 const merge = require("webpack-merge");
 const _mode = argv.mode || "development";
 const _modeflag = (_mode == "production" ? true : false);
@@ -10,9 +11,12 @@ const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
 const setTitle = require('node-bash-title');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const smp = new SpeedMeasurePlugin();
 const glob = require("glob");
-setTitle('🍻  老袁的' + _mode);
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
+setTitle('bldf的' + _mode);
 const {
     join,
     resolve
@@ -32,18 +36,32 @@ for (let item of files) {
             template: `src/webapp/views/${dist}/pages/${template}.html`,
             chunks: ["runtime", "common", entryKey],
             minify: {
-                removeComments: _modeflag,
-                collapseWhitespace: _modeflag
+                removeComments: _modeflag,// 去除空格
+                collapseWhitespace: _modeflag// 去除注释    
             },
             inject: false
         }))
     }
 }
+
 let webpackConfig = {
+    resolve:{
+        alias:{
+            '@': resolve('src/webapp') ,
+            '@v': resolve('src/webapp/views') ,
+            '@styles':resolve('src/webapp/styles') 
+        },
+        //extensions: 可以不写文件后罪名
+        extensions: [ '.tsx', '.ts', '.js','css','less' ]
+    },
     entry: _entry,
     module: {
         rules: [
-            { test: /\.tsx?$/, loader: "ts-loader" },
+         { test: /\.tsx?$/,
+            include: [path.resolve(__dirname, 'src')],
+            exclude: /(node_modules|bower_components)/,
+            // use:[{ loader: "ts-loader"},{ loader: "babel-loader"}] },
+            use:[{ loader: "ts-loader"}] },
             {
             test: /\.(gif|png|jpe?g|svg)$/i,
             use: [
@@ -67,13 +85,40 @@ let webpackConfig = {
                 }
             }]
         }, {
-            test: /\.css$/,
-            use: [{
+            test: /\.(c|le)ss$/,
+            // exclude:/.+antd\.css/i,
+            exclude: /node_modules/,
+            use: [
+            //     {
+            //     loader: 'style-loader',
+            //     options: {
+            //         sourceMap: true
+            //     }
+            // },
+            {
                 loader: MiniCssExtractPlugin.loader
             }, {
                 loader: 'css-loader',
                 options: {
                     modules: true,
+                    localIdentName: '[name]__[local]--[hash:base64:5]'
+                }
+            }, {
+                loader: 'less-loader',
+                options: {
+                    javascriptEnabled: true
+                }
+            }]
+        }, {
+            // test: /.+antd\.css/i,
+            test: /\.(c|le)ss$/,
+            include: /node_modules/,
+            use: [{
+                loader: MiniCssExtractPlugin.loader
+            }, {
+                loader: 'css-loader',
+                options: {
+                    // modules:false,
                     localIdentName: '[name]__[local]--[hash:base64:5]'
                 }
             }]
@@ -124,6 +169,18 @@ let webpackConfig = {
         new ProgressBarPlugin(),
         ..._plugins,
         new htmlAfterWebpackPlugin(),
+        new CopyWebpackPlugin([{
+            from: join(__dirname,  "/src/webapp/views/common/layout.html"),
+            to: '../views/common/layout.html'
+        }]),
+        new CopyWebpackPlugin([{
+            from: join(__dirname,  "/src/webapp/components"),
+            to: '../components'
+        }],{
+            copyUnmodified:true, //只打包copy内容
+            ignore:["*.js","*.css",".DS_Store","*.ts","*.tsx"]
+        }),
+        // new BundleAnalyzerPlugin() //查看打包分析
     ]
 }
 //module.exports = smp.wrap(merge(_mergeConfig, webpackConfig));
