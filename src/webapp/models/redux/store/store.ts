@@ -1,11 +1,7 @@
 let data = {
     home:{
-        text:'welcome to react cli of hewenxuan',
-        count: 20
-    },
-    hello:{
-        text:'hello world',
-        authors:{}
+        count: 20,
+        in:'2398'
     }
 };
 

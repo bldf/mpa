@@ -15,12 +15,13 @@ const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   reducer,
 //   _INITIAL_STATE_,
-    5,
+  data,
   applyMiddleware(
     sagaMiddleware
   )
 );
 
+// createStore(()=>{},{}); 
 // sagaMiddleware.run(mySaga);
 
 export default store;

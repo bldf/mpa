@@ -1,14 +1,17 @@
 interface actionType{
     type:string ;
 }
-export default (state = 0, action:actionType) => {
+export default (state = {home:{count:0}}, action:actionType) => {
 console.log("TCL: state", state)
-    console.log("TCL: action.type", action.type)
+    console.log("TCL: action.type----------------", action.type)
     switch (action.type) {
       case 'INCREMENT':
-        return state + 1
+        state.home.count+=1 ;
+        return {...state} ;
       case 'DECREMENT':
-        return state - 1
+          state.home.count-=1 ;
+          console.log("TCL: {...state}", {...state})
+        return {...state} ;
       default:
         return state
     }

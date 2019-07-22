@@ -6,14 +6,16 @@ import loadable from '@loadable/component' ;
 import { Provider } from 'react-redux'; // 管理所有状态的
 import store from "@/models/redux" ;
 import { connect } from 'react-redux' ;
+// import mapDispatchToProps from "@/models/redux/reducers/index"
 const BasicColumn = loadable(() => import('@/components/BasicColumn')) ;//懒加载
 
 
 const PageDom = (props:any)=>{
+  console.log("TCL: PageDom -> props.home.count ", props.home.count )
   return (
-    <Provider store={store}>
+    <>
     <div>
-        <h2>{ props.getState() }</h2>
+        <h2>{ props.home.count }</h2>
         <button key="add" onClick={() => { store.dispatch({type: 'INCREMENT'})}}>+</button>
         <button key="minus" onClick={() => { store.dispatch({type: 'DECREMENT'})}}>-</button>
       </div>
@@ -28,9 +30,9 @@ const PageDom = (props:any)=>{
       <li></li>
       <li></li>
     </ul>
-    </Provider>
+    </>
     ); 
-// }
+}
 
 // const getVisibleTodos = (todos, filter) => {
 //   switch (filter) {
@@ -45,18 +47,20 @@ const PageDom = (props:any)=>{
 //   }
 // }
 
-// const mapStateToProps = (state) => ({
-//   todos: getVisibleTodos(state.todos.present, state.visibilityFilter)
-// })
+const mapStateToProps = (state:any) => {
+  return {
+    home: state.home
+  }
+}
 
 // const mapDispatchToProps = ({
 //   onTodoClick: toggleTodo
 // })
 
-// const VisibleTodoList = connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(PageDom)
+const VisibleTodoList = connect(
+  mapStateToProps,
+  // mapDispatchToProps
+)(PageDom)
 
 ReactDOM.render((<Provider store={store}><VisibleTodoList/></Provider>), document.querySelector('#app'))
 
