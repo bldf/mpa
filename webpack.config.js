@@ -45,6 +45,7 @@ for (let item of files) {
 }
 
 let webpackConfig = {
+    mode:_mode,
     resolve:{
         alias:{
             '@': resolve('src/webapp') ,
@@ -140,6 +141,7 @@ let webpackConfig = {
         //namedChunks
         //moduleIds
         splitChunks: {
+            chunks: "all",
             cacheGroups: {
                 commons: {
                     chunks: 'initial',

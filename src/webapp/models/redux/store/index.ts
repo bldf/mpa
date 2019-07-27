@@ -7,7 +7,7 @@
 import {createStore, applyMiddleware} from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import reducer from '../reducers'
-// import mySaga from '../sagas'
+import {fetchData} from '../sagas'
 import data from './store';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -22,6 +22,6 @@ const store = createStore(
 );
 
 // createStore(()=>{},{}); 
-// sagaMiddleware.run(mySaga);
+sagaMiddleware.run(fetchData);
 
 export default store;
