@@ -91,6 +91,6 @@
     "webpack-dev-middleware": "^3.7.0",
     "webpack-dev-server": "^3.7.2",
     "webpack-merge": "^4.1.4",
-    "yargs-parser": "^11.0.0"
+    "yargs-parser": "^20.0.0"
   }
 }
